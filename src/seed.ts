@@ -1,5 +1,7 @@
+import { PrismaClient } from '@prisma/client'
 import { add } from 'date-fns'
-import { prisma } from './server'
+
+const prisma = new PrismaClient()
 
 async function main() {
   await prisma.testResult.deleteMany()

@@ -1,20 +1,19 @@
-import { PrismaClient } from '@prisma/client'
 import Hapi from '@hapi/hapi';
 
+import prismaPlugin from './plugins/prisma';
 import { setupRoutes } from './routes';
-
-export const prisma = new PrismaClient();
 
 const server: Hapi.Server = Hapi.server({
   port: process.env.PORT || 3000,
   host: process.env.HOST || 'localhost',
-})
+});
 
 export const createServer = async (): Promise<Hapi.Server> => {
+  await server.register(prismaPlugin);
   setupRoutes(server);
   await server.initialize();
 
-  return server;;
+  return server;
 };
 
 export const startServer = async (server: Hapi.Server): Promise<Hapi.Server> => {
@@ -26,6 +25,6 @@ export const startServer = async (server: Hapi.Server): Promise<Hapi.Server> => 
 
 process.on('unhandledRejection', async (err) => {
   console.log(err);
-  await prisma.$disconnect();
+  await server.app.prisma.$disconnect();
   process.exit(1);
 });
