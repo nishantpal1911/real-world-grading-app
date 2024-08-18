@@ -1,5 +1,7 @@
 import { createServer, startServer } from './server';
 
-createServer().then(startServer).catch(err => {
-  console.log(err)
-});
+createServer()
+  .then(startServer)
+  .catch((err) => {
+    console.log(err);
+  });

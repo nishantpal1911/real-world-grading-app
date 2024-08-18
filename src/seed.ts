@@ -1,14 +1,14 @@
-import { PrismaClient } from '@prisma/client'
-import { add } from 'date-fns'
+import { PrismaClient } from '@prisma/client';
+import { add } from 'date-fns';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.testResult.deleteMany()
-  await prisma.courseEnrollment.deleteMany()
-  await prisma.test.deleteMany()
-  await prisma.user.deleteMany()
-  await prisma.course.deleteMany()
+  await prisma.testResult.deleteMany();
+  await prisma.courseEnrollment.deleteMany();
+  await prisma.test.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.course.deleteMany();
 
   const grace = await prisma.user.create({
     data: {
@@ -20,11 +20,11 @@ async function main() {
         twitter: 'therealgracebell',
       },
     },
-  })
+  });
 
-  const weekFromNow = add(new Date(), { days: 7 })
-  const twoWeekFromNow = add(new Date(), { days: 14 })
-  const monthFromNow = add(new Date(), { days: 28 })
+  const weekFromNow = add(new Date(), { days: 7 });
+  const twoWeekFromNow = add(new Date(), { days: 14 });
+  const monthFromNow = add(new Date(), { days: 28 });
 
   const course = await prisma.course.create({
     data: {
@@ -59,7 +59,7 @@ async function main() {
     include: {
       tests: true,
     },
-  })
+  });
 
   const shakuntala = await prisma.user.create({
     data: {
@@ -75,8 +75,8 @@ async function main() {
         },
       },
     },
-  })
-  
+  });
+
   const david = await prisma.user.create({
     data: {
       email: 'david@prisma.io',
@@ -91,12 +91,13 @@ async function main() {
         },
       },
     },
-  })
+  });
 
-  const testResultsDavid = [650, 900, 950]
-  const testResultsShakuntala = [800, 950, 910]
+  const testResultsDavid = [650, 900, 950];
+  const testResultsShakuntala = [800, 950, 910];
 
-  let counter = 0
+  let counter = 0;
+
   for (const test of course.tests) {
     await prisma.testResult.create({
       data: {
@@ -111,7 +112,7 @@ async function main() {
         },
         result: testResultsShakuntala[counter],
       },
-    })
+    });
 
     await prisma.testResult.create({
       data: {
@@ -126,18 +127,18 @@ async function main() {
         },
         result: testResultsDavid[counter],
       },
-    })
+    });
 
-    counter++
+    counter++;
   }
 }
 
 main()
   .catch((e: Error) => {
-    console.error(e)
-    process.exit(1)
+    console.error(e);
+    process.exit(1);
   })
   .finally(async () => {
     // Disconnect Prisma Client
     await prisma.$disconnect();
-  })
+  });

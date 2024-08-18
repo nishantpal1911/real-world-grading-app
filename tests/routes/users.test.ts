@@ -1,4 +1,3 @@
-import type { User } from '@prisma/client';
 import { createServer } from '../../src/server';
 import Hapi from '@hapi/hapi';
 

@@ -1,16 +1,17 @@
-import { PrismaClient } from '@prisma/client'
-import Hapi from '@hapi/hapi'
+import { PrismaClient } from '@prisma/client';
+import Hapi from '@hapi/hapi';
 
 declare module '@hapi/hapi' {
+  // eslint-disable-next-line no-unused-vars
   interface ServerApplicationState {
-    prisma: PrismaClient
+    prisma: PrismaClient;
   }
 }
 
 // plugin to instantiate Prisma Client
 const prismaPlugin: Hapi.Plugin<null> = {
   name: 'prisma',
-  register: async function(server: Hapi.Server) {
+  register: async function (server: Hapi.Server) {
     const prisma = new PrismaClient();
 
     server.app.prisma = prisma;
