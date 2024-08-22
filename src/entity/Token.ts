@@ -1,17 +1,16 @@
 import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
   BaseEntity,
+  Column,
   CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
-import { TokenType } from '../types';
-
-import { User } from './User';
+import { User } from 'src/entity/User';
+import { TokenType } from 'src/types';
 
 @Entity()
 export class Token extends BaseEntity {

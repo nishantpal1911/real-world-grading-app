@@ -1,11 +1,11 @@
+import Boom from '@hapi/boom';
 import Hapi from '@hapi/hapi';
 import { add } from 'date-fns';
-import Boom from '@hapi/boom';
 
-import { EMAIL_TOKEN_EXPIRATION_MINUTES } from '../utils/constants';
-import { LoginInput, TokenType } from '../types';
-import { Token } from '../entity/Token';
-import { User } from '../entity/User';
+import { Token } from 'src/entity/Token';
+import { User } from 'src/entity/User';
+import { LoginInput, TokenType } from 'src/types';
+import { EMAIL_TOKEN_EXPIRATION_MINUTES } from 'src/utils/constants';
 
 /**
  * Generate a random 8 digit number as the email token
@@ -16,7 +16,7 @@ function generateEmailToken(): string {
 
 const loginHandler = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
   const { sendEmailToken } = request.server.app;
-  const { firstName, lastName, email } = request.payload as LoginInput;
+  const { email, firstName, lastName } = request.payload as LoginInput;
 
   const emailToken = generateEmailToken();
   const expiresAt = add(new Date(), {

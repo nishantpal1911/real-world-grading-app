@@ -1,10 +1,10 @@
 import Hapi from '@hapi/hapi';
 import hapiAuthJwt2 from 'hapi-auth-jwt2';
 
-import { setupRoutes } from './routes';
-import emailPlugin from './plugins/email';
-import authPlugin from './plugins/auth';
-import { AppDataSource } from './data-source';
+import { AppDataSource } from 'src/data-source';
+import authPlugin from 'src/plugins/auth';
+import emailPlugin from 'src/plugins/email';
+import { setupRoutes } from 'src/routes';
 
 const server: Hapi.Server = Hapi.server({
   port: process.env.PORT || 3000,

@@ -1,8 +1,8 @@
-import Hapi from '@hapi/hapi';
 import Boom from '@hapi/boom';
+import Hapi from '@hapi/hapi';
 
-import { CreateUserPayload, UpdateUserPayload } from '../types';
-import { User } from '../entity/User';
+import { User } from 'src/entity/User';
+import { CreateUserPayload, UpdateUserPayload } from 'src/types';
 
 export const getAllUsers = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
   const users = await User.find().catch((error: any) => {
@@ -23,7 +23,7 @@ export const getUserById = async (request: Hapi.Request, h: Hapi.ResponseToolkit
 };
 
 export const createUser = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-  const { firstName, lastName, email, isAdmin, social } = request.payload as CreateUserPayload;
+  const { email, firstName, isAdmin, lastName, social } = request.payload as CreateUserPayload;
 
   try {
     const user = await new User({

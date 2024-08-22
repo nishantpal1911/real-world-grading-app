@@ -1,16 +1,16 @@
 import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
   BaseEntity,
-  OneToMany,
+  Column,
   CreateDateColumn,
-  UpdateDateColumn,
+  Entity,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
-import { Course } from './Course';
-import { TestResult } from './TestResult';
+import { Course } from 'src/entity/Course';
+import { TestResult } from 'src/entity/TestResult';
 
 @Entity()
 export class Test extends BaseEntity {

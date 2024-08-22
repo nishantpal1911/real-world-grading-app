@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
+import 'tsconfig-paths/register';
 
-import { createServer, startServer } from './server';
+import { createServer, startServer } from 'src/server';
 
 dotenv.config();
 

@@ -1,8 +1,8 @@
 import Hapi from '@hapi/hapi';
 import Joi from '@hapi/joi';
 
-import loginHandler from '../handlers/login';
-import authenticateHandler from '../handlers/auth';
+import authenticateHandler from 'src/handlers/auth';
+import loginHandler from 'src/handlers/login';
 
 // Endpoint to login or register and to send the short-lived token
 const loginRoute: Hapi.ServerRoute = {

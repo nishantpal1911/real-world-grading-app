@@ -1,7 +1,7 @@
 import Hapi from '@hapi/hapi';
 
-import { createCourse, deleteCourseById, getAllCourses, getCourseById, updateCourseById } from '../handlers/courses';
-import Validation from '../validators';
+import { createCourse, deleteCourseById, getAllCourses, getCourseById, updateCourseById } from 'src/handlers/courses';
+import Validation from 'src/validators';
 
 const courseRoutes: Hapi.ServerRoute[] = [
   {

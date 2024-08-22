@@ -1,7 +1,7 @@
 import Hapi from '@hapi/hapi';
 
-import { createUser, deleteUserById, getAllUsers, getUserById, updateUserById } from '../handlers/users';
-import Validation from '../validators';
+import { createUser, deleteUserById, getAllUsers, getUserById, updateUserById } from 'src/handlers/users';
+import Validation from 'src/validators';
 
 const userRoutes: Hapi.ServerRoute[] = [
   {

@@ -1,9 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, CreateDateColumn, ManyToOne } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { UserRole } from '../types';
-
-import { User } from './User';
-import { Course } from './Course';
+import { Course } from 'src/entity/Course';
+import { User } from 'src/entity/User';
+import { UserRole } from 'src/types';
 
 @Entity()
 export class CourseEnrollment extends BaseEntity {

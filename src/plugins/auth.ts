@@ -1,9 +1,9 @@
 import Hapi from '@hapi/hapi';
 import Joi from '@hapi/joi';
 
-import { API_AUTH_STATEGY, JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
-import { APITokenPayload } from '../types';
-import { Token } from '../entity/Token';
+import { Token } from 'src/entity/Token';
+import { APITokenPayload } from 'src/types';
+import { API_AUTH_STATEGY, JWT_ALGORITHM, JWT_SECRET } from 'src/utils/constants';
 
 const authPlugin = {
   name: 'app/auth',

@@ -1,5 +1,5 @@
-import CourseValidation from './courses';
-import UserValidation from './users';
+import CourseValidation from 'src/validators/courses';
+import UserValidation from 'src/validators/users';
 
 namespace Validation {
   export const Users = UserValidation;

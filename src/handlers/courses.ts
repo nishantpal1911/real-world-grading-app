@@ -1,8 +1,8 @@
 import Boom from '@hapi/boom';
 import Hapi from '@hapi/hapi';
 
-import { CreateCoursePayload, UpdateCoursePayload } from '../types';
-import { Course } from '../entity/Course';
+import { Course } from 'src/entity/Course';
+import { CreateCoursePayload, UpdateCoursePayload } from 'src/types';
 
 export const getAllCourses = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
   const courses = await Course.find().catch((error: any) => {
@@ -23,7 +23,7 @@ export const getCourseById = async (request: Hapi.Request, h: Hapi.ResponseToolk
 };
 
 export const createCourse = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-  const { name, courseDetails } = request.payload as CreateCoursePayload;
+  const { courseDetails, name } = request.payload as CreateCoursePayload;
 
   const course = await new Course({ name, courseDetails }).save().catch((e: any) => {
     throw Boom.conflict(`Course ${name} already exists`, e);
@@ -34,8 +34,8 @@ export const createCourse = async (request: Hapi.Request, h: Hapi.ResponseToolki
 
 export const updateCourseById = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
   const {
-    query: { courseId },
     payload,
+    query: { courseId },
   } = request;
 
   const course = await Course.findOneByOrFail({ id: parseInt(courseId) }).catch((e: any) => {

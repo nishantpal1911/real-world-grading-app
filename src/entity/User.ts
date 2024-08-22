@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Token } from './Token';
-import { CourseEnrollment } from './CourseEnrollment';
-import { TestResult } from './TestResult';
+import { CourseEnrollment } from 'src/entity/CourseEnrollment';
+import { TestResult } from 'src/entity/TestResult';
+import { Token } from 'src/entity/Token';
 
 @Entity()
 export class User extends BaseEntity {

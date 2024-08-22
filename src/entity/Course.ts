@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, OneToMany } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { CourseEnrollment } from './CourseEnrollment';
-import { Test } from './Test';
+import { CourseEnrollment } from 'src/entity/CourseEnrollment';
+import { Test } from 'src/entity/Test';
 
 @Entity()
 export class Course extends BaseEntity {

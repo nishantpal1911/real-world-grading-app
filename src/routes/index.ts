@@ -1,9 +1,9 @@
 import Hapi from '@hapi/hapi';
 import Joi from '@hapi/joi';
 
-import userRoutes from './users';
-import authRoutes from './auth';
-import courseRoutes from './courses';
+import authRoutes from 'src/routes/auth';
+import courseRoutes from 'src/routes/courses';
+import userRoutes from 'src/routes/users';
 
 export const setupRoutes = (server: Hapi.Server): void => {
   server.validator(Joi);
@@ -16,5 +16,5 @@ export const setupRoutes = (server: Hapi.Server): void => {
     },
   });
 
-  server.route([...authRoutes, ...userRoutes]);
+  server.route([...authRoutes, ...userRoutes, ...courseRoutes]);
 };

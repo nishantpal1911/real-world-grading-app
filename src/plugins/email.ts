@@ -59,19 +59,12 @@ const sendEmailToken = async (email: string, token: string) => {
   const message: Mail.Options = {
     ...mailOptions,
     to: email,
-    // subject: 'Confirm your email address',
-    // text: 'Thank you for signing up for the grading app. Please click this link to confirm your email address',
-    // html: '<b>Thank you for signing up for the grading app. Please click this  to confirm your email address</b>'
     subject: 'Your Login Token',
     text: `Your login token is: ${token}`,
     html: `Your login token is: <b>${token}</b>`,
   };
 
-  return getTransporter()
-    .sendMail(message)
-    .catch((error) => {
-      console.log('error: ', error);
-    });
+  return getTransporter().sendMail(message);
 };
 
 const debugSendEmailToken = async (email: string, token: string) => {

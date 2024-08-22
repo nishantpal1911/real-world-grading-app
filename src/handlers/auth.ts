@@ -1,11 +1,11 @@
-import Hapi from '@hapi/hapi';
 import Boom from '@hapi/boom';
+import Hapi from '@hapi/hapi';
 import { add } from 'date-fns';
 import jwt from 'jsonwebtoken';
 
-import { AuthenticateInput, TokenType } from '../types';
-import { AUTHENTICATION_TOKEN_EXPIRATION_HOURS, JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
-import { Token } from '../entity/Token';
+import { Token } from 'src/entity/Token';
+import { AuthenticateInput, TokenType } from 'src/types';
+import { AUTHENTICATION_TOKEN_EXPIRATION_HOURS, JWT_ALGORITHM, JWT_SECRET } from 'src/utils/constants';
 
 // Generate a signed JWT token with the tokenId in the payload
 const generateAuthToken = (tokenId: number): string => {
