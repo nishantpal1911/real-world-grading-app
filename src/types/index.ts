@@ -35,3 +35,13 @@ export interface CreateCoursePayload {
 }
 
 export interface UpdateCoursePayload extends Partial<CreateCoursePayload> {}
+
+export enum TokenType {
+  API = 'API',
+  EMAIL = 'EMAIL',
+}
+
+export enum UserRole {
+  TEACHER = 'TEACHER',
+  STUDENT = 'STUDENT',
+}

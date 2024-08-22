@@ -1,20 +1,8 @@
 # Real-world class grading App
 
-A real-world class grading application built with Prisma.
+A real-world class grading application built with TypeORM.
 
 The grading application is used to manage enrollment in online classes, tests (as in exams) for classes, and test results.
-
-The goal if this application is to showcase a real-world scenario of an application using Prisma. the following aspects of Prisma
-- Data modeling
-- CRUD
-- Aggregations
-- API layer
-- Validation
-- Testing
-- Authentication
-- Authorization
-- Integration with other APIs
-- Deployment
 
 ## Data model
 
@@ -26,15 +14,12 @@ The schema is first designed to represent the following concepts:
 - **Test**: Each course can have many tests
 - **TestResult**: Each Test can have many TestReusults that is associated with a student
 
-These are defined in the [Prisma schema](./prisma/schema.prisma).
-The database schema will be created by Prisma Migrate.
-
 ## Tech Stack
 
 - Backend:
   - PostgreSQL
   - Node.js
-  - Prisma
+  - TypeORM
   - TypeScript
   - Jest
 

@@ -1,11 +1,11 @@
 import Hapi from '@hapi/hapi';
 import Boom from '@hapi/boom';
 import { add } from 'date-fns';
-import { TokenType } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
-import { AuthenticateInput } from '../types';
+import { AuthenticateInput, TokenType } from '../types';
 import { AUTHENTICATION_TOKEN_EXPIRATION_HOURS, JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
+import { Token } from '../entity/Token';
 
 // Generate a signed JWT token with the tokenId in the payload
 const generateAuthToken = (tokenId: number): string => {
@@ -15,19 +15,11 @@ const generateAuthToken = (tokenId: number): string => {
   });
 };
 
-const authenticateHandler = async (request: Hapi.Request, h: Hapi.ResponseToolkit) => {
-  const { prisma } = request.server.app;
+const authenticateHandler = async (request: any, h: Hapi.ResponseToolkit) => {
   const { email, emailToken } = request.payload as AuthenticateInput;
 
   try {
-    const fetchedEmailToken = await prisma.token.findUnique({
-      where: {
-        emailToken: emailToken,
-      },
-      include: {
-        user: true,
-      },
-    });
+    const fetchedEmailToken = await Token.findOneBy({ emailToken });
 
     if (!fetchedEmailToken?.valid || fetchedEmailToken?.user?.email !== email) {
       // If the token doesn't exist or is not valid or does not match the user email
@@ -44,30 +36,16 @@ const authenticateHandler = async (request: Hapi.Request, h: Hapi.ResponseToolki
       hours: AUTHENTICATION_TOKEN_EXPIRATION_HOURS,
     });
     // Persist token in DB so it's stateful
-    const createdToken = await prisma.token.create({
-      data: {
-        type: TokenType.API,
-        expiresAt,
-        user: {
-          connect: { email },
-        },
-      },
-    });
+    const createdToken = await new Token({ type: TokenType.API, expiresAt, user: fetchedEmailToken.user }).save();
 
     // Invalidate the email token after it's been used
-    await prisma.token.update({
-      where: {
-        id: fetchedEmailToken.id,
-      },
-      data: {
-        valid: false,
-      },
-    });
+    fetchedEmailToken.valid = false;
+    fetchedEmailToken.save();
 
     const authToken = generateAuthToken(createdToken.id);
 
     return h.response().code(200).header('Authorization', authToken);
-  } catch (error) {
+  } catch (error: any) {
     return Boom.badImplementation((error as Error).message);
   }
 };

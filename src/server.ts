@@ -1,10 +1,10 @@
 import Hapi from '@hapi/hapi';
 import hapiAuthJwt2 from 'hapi-auth-jwt2';
 
-import prismaPlugin from './plugins/prisma';
 import { setupRoutes } from './routes';
 import emailPlugin from './plugins/email';
 import authPlugin from './plugins/auth';
+import { AppDataSource } from './data-source';
 
 const server: Hapi.Server = Hapi.server({
   port: process.env.PORT || 3000,
@@ -12,7 +12,11 @@ const server: Hapi.Server = Hapi.server({
 });
 
 export const createServer = async (): Promise<Hapi.Server> => {
-  await server.register([prismaPlugin, emailPlugin, hapiAuthJwt2, authPlugin]);
+  await AppDataSource.initialize().then(() => {
+    console.log('DataSource initialized');
+  });
+
+  await server.register([emailPlugin, hapiAuthJwt2, authPlugin]);
   setupRoutes(server);
   await server.initialize();
 
@@ -28,6 +32,5 @@ export const startServer = async (server: Hapi.Server): Promise<Hapi.Server> => 
 
 process.on('unhandledRejection', async (err) => {
   console.log(err);
-  await server.app.prisma.$disconnect();
   process.exit(1);
 });

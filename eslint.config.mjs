@@ -36,6 +36,7 @@ export default [
     files: ['src/**/*.ts'],
     rules: {
       'no-var': 'error',
+      'no-unused-vars': 'off',
       'prefer-const': 'error',
       eqeqeq: ['error', 'smart'],
       'newline-before-return': 'error',
@@ -45,6 +46,7 @@ export default [
       'import/newline-after-import': 'error',
       'import/first': ['error', 'absolute-first'],
       'import/order': ['error', { 'newlines-between': 'always' }],
+      '@typescript-eslint/no-unused-vars': 'error',
     },
   },
 ];

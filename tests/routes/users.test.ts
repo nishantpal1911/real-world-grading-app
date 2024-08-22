@@ -15,7 +15,7 @@ describe('/users path tests', () => {
   });
 
   test('POST /users with correct payload returns status 201', async () => {
-    email = `test-${Date.now()}@prisma.io`;
+    email = `test-${Date.now()}@domain.com`;
     const response = await server.inject({
       method: 'POST',
       url: '/users',
@@ -25,9 +25,9 @@ describe('/users path tests', () => {
         email,
         social: {
           twitter: 'thisisalice',
-          website: 'https://www.thisisalice.com'
-        }
-      }
+          website: 'https://www.thisisalice.com',
+        },
+      },
     });
     expect(response.statusCode).toEqual(201);
     const { id } = JSON.parse(response.payload);
@@ -41,7 +41,7 @@ describe('/users path tests', () => {
       url: '/users',
       payload: {
         lastName: 'test-last-name',
-        email: `test-${Date.now()}@prisma.io`,
+        email: `test-${Date.now()}@domain.com`,
         social: {
           twitter: 'thisisalice',
           website: 'https://www.thisisalice.com',

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import Hapi from '@hapi/hapi';
-import nodemailer from 'nodemailer';
+import nodemailer, { Transporter } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -12,15 +11,23 @@ declare module '@hapi/hapi' {
   }
 }
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false, // Use `true` for port 465, `false` for all other ports
-  auth: {
-    user: process.env.NODEMAILER_USER,
-    pass: process.env.NODEMAILER_PASS,
-  },
-});
+let transporter: Transporter<SMTPTransport.SentMessageInfo>;
+
+const getTransporter = () => {
+  transporter =
+    transporter ||
+    nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false, // Use `true` for port 465, `false` for all other ports
+      auth: {
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS,
+      },
+    });
+
+  return transporter;
+};
 
 const mailOptions: Mail.Options = {
   from: {
@@ -60,7 +67,11 @@ const sendEmailToken = async (email: string, token: string) => {
     html: `Your login token is: <b>${token}</b>`,
   };
 
-  return transporter.sendMail(message);
+  return getTransporter()
+    .sendMail(message)
+    .catch((error) => {
+      console.log('error: ', error);
+    });
 };
 
 const debugSendEmailToken = async (email: string, token: string) => {

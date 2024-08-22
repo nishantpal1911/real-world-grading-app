@@ -16,5 +16,5 @@ export const setupRoutes = (server: Hapi.Server): void => {
     },
   });
 
-  server.route([...authRoutes, ...userRoutes, ...courseRoutes]);
+  server.route([...authRoutes, ...userRoutes]);
 };

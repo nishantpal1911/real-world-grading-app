@@ -8,8 +8,11 @@
     "strict": true,
     "lib": ["esnext"],
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,  
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true
   },
   "include": ["src"],
   "exclude": ["dist", "tests"]
