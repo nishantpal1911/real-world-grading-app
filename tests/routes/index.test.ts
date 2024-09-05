@@ -1,5 +1,6 @@
-import { createServer } from '../../src/server';
 import Hapi from '@hapi/hapi';
+
+import { createServer, stopServer } from 'src/server';
 
 describe('it starts the server correctly', () => {
   let server: Hapi.Server;
@@ -9,7 +10,7 @@ describe('it starts the server correctly', () => {
   });
 
   afterAll(async () => {
-    await server.stop();
+    await stopServer();
   });
 
   test('/ endpoint returns 200', async () => {
@@ -17,8 +18,8 @@ describe('it starts the server correctly', () => {
       method: 'GET',
       url: '/',
     });
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toBe(200);
     const responsePayload = JSON.parse(response.payload);
-    expect(responsePayload.up).toEqual(true);
+    expect(responsePayload.up).toBe(true);
   });
 });

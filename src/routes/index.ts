@@ -14,6 +14,7 @@ export const setupRoutes = (server: Hapi.Server): void => {
     handler: (_, h: Hapi.ResponseToolkit) => {
       return h.response({ up: true }).code(200);
     },
+    options: { auth: false },
   });
 
   server.route([...authRoutes, ...userRoutes, ...courseRoutes]);

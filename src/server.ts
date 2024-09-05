@@ -30,6 +30,11 @@ export const startServer = async (server: Hapi.Server): Promise<Hapi.Server> => 
   return server;
 };
 
+export const stopServer = async () => {
+  await server.stop();
+  await AppDataSource.destroy();
+};
+
 process.on('unhandledRejection', async (err) => {
   console.log(err);
   process.exit(1);

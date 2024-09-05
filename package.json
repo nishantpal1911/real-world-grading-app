@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
-    "@types/hapi__hapi": "^21.0.0",
     "@types/hapi__joi": "^17.1.14",
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
@@ -42,8 +41,8 @@
     "typescript": "^5.5.4"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn ./src/index.ts",
-    "seed": "ts-node ./src/seed.ts",
+    "dev": "ts-node-dev --respawn -r tsconfig-paths/register ./src/index.ts",
+    "seed": "ts-node -r tsconfig-paths/register ./src/seed.ts",
     "test": "jest --watch",
     "postgres:start": "docker-compose up -d",
     "lint": "eslint \"src/**/*.+(js|ts|json)\"",
